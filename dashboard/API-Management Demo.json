@@ -8,8 +8,8 @@
             "position": {
               "x": 0,
               "y": 0,
-              "colSpan": 8,
-              "rowSpan": 8
+              "colSpan": 7,
+              "rowSpan": 9
             },
             "metadata": {
               "inputs": [],
@@ -27,10 +27,10 @@
           },
           "1": {
             "position": {
-              "x": 8,
+              "x": 7,
               "y": 0,
-              "colSpan": 6,
-              "rowSpan": 8
+              "colSpan": 7,
+              "rowSpan": 9
             },
             "metadata": {
               "inputs": [],
@@ -59,12 +59,35 @@
               "settings": {
                 "content": {
                   "settings": {
-                    "content": "\n### Deploy API Management\n\n<a href=\"https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure%2Fazure-quickstart-templates%2Fmaster%2F101-azure-api-management-create%2Fazuredeploy.json\" target=\"_blank\">\n    <img src=\"http://azuredeploy.net/deploybutton.png\"/>\n</a>\n\n\n### Sample API(s)\n\n```bash\nAPI in Container\n--------------------\n\naz container create --resource-group demo --name dks-demo-api \\\n  --image danielscholl/demoapi \\\n  --dns-name-label dks-demo \\\n  --ports 80\n\n\nAPI in Web App\n--------------------\n\n\nAPI in Function\n--------------------\n\n```\n\n\n",
+                    "content": "\n### Deploy API Management\n\n<a href=\"https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure%2Fazure-quickstart-templates%2Fmaster%2F101-azure-api-management-create%2Fazuredeploy.json\" target=\"_blank\">\n    <img src=\"http://azuredeploy.net/deploybutton.png\"/>\n</a>\n\n\n### Sample API(s)\n\n```bash\n# API in Container\n# ----------------\nResource_Group=\"demo\"\nDns_Name=\"75098api\"\n\naz container create --name ${Dns_Name} \\\n    --resource-group ${Resource_Group}  \\\n    --image danielscholl/demoapi \\\n    --dns-name-label ${Dns_Name} \\\n    --ports 80\n\n\n# API in Function App\n# --------------------\nStorage_Account=\"75098storage\"\nCode=\"https://github.com/danielscholl/demo-apimanagement/tree/master/src/Demo.Functions\"\n\naz storage account create --name ${Storage_Account} \\\n    --resource-group ${Resource_Group} \\\n    --sku Standard_LRS \\\n    --location eastus2 \n    \n\naz functionapp create --name ${Dns_Name} \\\n    --resource-group ${Resource_Group} \\\n    --storage-account  ${Storage_Account} \\\n    --deployment-source-url ${Code}  \\\n    --consumption-plan-location eastus2\n```\n\n\n",
                     "title": "API Management",
                     "subtitle": "Creation"
                   }
                 }
               }
+            }
+          },
+          "3": {
+            "position": {
+              "x": 14,
+              "y": 6,
+              "colSpan": 6,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "resourceGroup",
+                  "isOptional": true
+                },
+                {
+                  "name": "id",
+                  "value": "/subscriptions/67e82f75-4ce1-49e1-943e-37d4491aa83c/resourceGroups/demo",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ResourceGroupMapPinnedPart",
+              "defaultMenuItemId": "overview"
             }
           }
         }

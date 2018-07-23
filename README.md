@@ -44,26 +44,41 @@ ___Customer Story:___
 
 ### Deploy API Management
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure%2Fazure-quickstart-templates%2Fmaster%2F101-azure-api-management-create%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/urihttps%3A%2F%2Fraw.githubusercontent.com%2Fdanielscholl%2Fdemo-apimanagement%2Fmaster%2Ftemplates%2Fapi-management-create%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
 
-### Sample API(s)
+### Deploy API Samples
 
 ```bash
 # API in Container
 # ----------------
+Resource_Group="demo"
+Dns_Name="75098api"
 
-az container create --resource-group demo --name dks-demo-api \
-  --image danielscholl/demoapi \
-  --dns-name-label dks-demo \
-  --ports 80
+az container create --name ${Dns_Name} \
+    --resource-group ${Resource_Group}  \
+    --image danielscholl/demoapi \
+    --dns-name-label ${Dns_Name} \
+    --ports 80
 
 
-API in Function App
---------------------
+# API in Function App
+# --------------------
+Storage_Account="75098storage"
+Code="https://github.com/danielscholl/demo-apimanagement/tree/master/src/Demo.Functions"
 
+az storage account create --name ${Storage_Account} \
+    --resource-group ${Resource_Group} \
+    --sku Standard_LRS \
+    --location eastus2   
+
+az functionapp create --name ${Dns_Name} \
+    --resource-group ${Resource_Group} \
+    --storage-account  ${Storage_Account} \
+    --deployment-source-url ${Code}  \
+    --consumption-plan-location eastus2
 ```
 
 
