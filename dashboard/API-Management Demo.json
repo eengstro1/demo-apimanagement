@@ -82,12 +82,11 @@
                 },
                 {
                   "name": "id",
-                  "value": "/subscriptions/67e82f75-4ce1-49e1-943e-37d4491aa83c/resourceGroups/demo",
+                  "value": "/subscriptions/67e82f75-4ce1-49e1-943e-37d4491aa83c/resourcegroups/demo-apimanagement",
                   "isOptional": true
                 }
               ],
-              "type": "Extension/HubsExtension/PartType/ResourceGroupMapPinnedPart",
-              "defaultMenuItemId": "overview"
+              "type": "Extension/HubsExtension/PartType/ResourceGroupMapPinnedPart"
             }
           }
         }
