@@ -10,7 +10,7 @@ The most common Uses Cases for the the Service.
 1. __Microservice Gateway__ -- API gateway to decouple a frontend  from microservices and do things like HTTPS offloading, request orchestration and API transformation.
 Portal)
 
-<img src='https://danielscholl.blob.core.windows.net/public/api_managment_price.png'/>
+<img src='https://raw.githubusercontent.com/danielscholl/demo-apimanagement/master/images/api_management_price.png'/>
 
 ___Customer Story:___
 
@@ -18,7 +18,7 @@ ___Customer Story:___
 
 [Developer Portal](https://developer.earthnetworks.com/) - https://developer.earthnetworks.com
 
-<img src='https://danielscholl.blob.core.windows.net/public/api_management_components.png'/>
+<img src='https://github.com/danielscholl/demo-apimanagement/raw/master/images/api_management_components.png'/>
 
 1. Developer Portal
    - Read Documentation
