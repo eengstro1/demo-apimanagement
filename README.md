@@ -95,4 +95,17 @@ az functionapp config appsettings set --name "${Prefix}-funcapp" \
     --settings FUNCTIONS_EXTENSION_VERSION=beta
 ```
 
+___Test API Samples:___
 
+```bash
+# Set Variables up
+# ----------------
+API="https://${Prefix}-funcapp.azurewebsites.net/api"
+
+# Test Ping/Pong
+curl ${API}/ping
+
+# Test TODO
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d "{'tododescription': 'hello-world'}" ${API}/todo
+curl ${API}/todo
+```
