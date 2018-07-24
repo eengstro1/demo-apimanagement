@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  simpleapp.api:
-    image: ${DOCKER_REGISTRY}/demoapi
-    build:
-      context: .
-      dockerfile: Demo.API/Dockerfile

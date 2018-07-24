@@ -42,43 +42,57 @@ ___Customer Story:___
     - Manage Users of API's
 
 
-### Deploy API Management
+## API Source Code Samples
+
+[OpenSpec API Sample Code](https://github.com/danielscholl/demo-apimanagement-apicode)
+[PreCompiled CRUD Serverless Function Sample Code](https://github.com/danielscholl/demo-apimanagement-funcapp)
+
+___Deploy API Management:___
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/urihttps%3A%2F%2Fraw.githubusercontent.com%2Fdanielscholl%2Fdemo-apimanagement%2Fmaster%2Ftemplates%2Fapi-management-create%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
 
-### Deploy API Samples
+__Deploy API Samples:__
 
 ```bash
+# Set Variables up
+# ----------------
+
+Resource_Group="demo"
+Prefix="75098"
+Registry="danielscholl"
+Code="https://github.com/danielscholl/demo-apimanagement-funcapp.git"
+
+
 # API in Container
 # ----------------
-Resource_Group="demo"
-Dns_Name="75098api"
 
-az container create --name ${Dns_Name} \
-    --resource-group ${Resource_Group}  \
-    --image danielscholl/demoapi \
-    --dns-name-label ${Dns_Name} \
-    --ports 80
+az container create --name "${Prefix}-api" \
+	--resource-group ${Resource_Group} \
+	--image "${Registry}/demoapi" \
+	--dns-name-label "${Prefix}-api" \
+	--ports 80
 
 
 # API in Function App
 # --------------------
-Storage_Account="75098storage"
-Code="https://github.com/danielscholl/demo-apimanagement/tree/master/src/Demo.Functions"
 
-az storage account create --name ${Storage_Account} \
+az storage account create --name "${Prefix}storage" \
     --resource-group ${Resource_Group} \
     --sku Standard_LRS \
-    --location eastus2   
+    --location eastus2 
 
-az functionapp create --name ${Dns_Name} \
+az functionapp create --name "${Prefix}-funcapp" \
     --resource-group ${Resource_Group} \
-    --storage-account  ${Storage_Account} \
+    --storage-account  "${Prefix}storage" \
     --deployment-source-url ${Code}  \
     --consumption-plan-location eastus2
+
+az functionapp config appsettings set --name "${Prefix}-funcapp" \
+    --resource-group ${Resource_Group} \
+    --settings FUNCTIONS_EXTENSION_VERSION=beta
 ```
 
 
