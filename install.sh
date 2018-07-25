@@ -8,30 +8,27 @@
 ###############################
 ## ARGUMENT INPUT            ##
 ###############################
-usage() { echo "Usage: install.sh <resourcegroup> <prefix> <publishername> <email>" 1>&2; exit 1; }
+usage() { echo "Usage: install.sh <email> <resourcegroup> <prefix> <publishername>" 1>&2; exit 1; }
 
-if [ ! -z $1 ]; then RESOURCE_GROUP=$1; fi
-if [ -z $RESOURCE_GROUP ]; then
-  tput setaf 1; echo 'ERROR: RESOURCE_GROUP not provided' ; tput sgr0
-  usage;
-fi
-
-if [ ! -z $2 ]; then PUBLISHER_NAME=$2; fi
-if [ -z $PREFIX ]; then
-  tput setaf 1; echo 'ERROR: PUBLISHER_NAME not provided' ; tput sgr0
-  usage;
-fi
-
-if [ ! -z $3 ]; then PUBLISHER_NAME=$3; fi
-if [ -z $PUBLISHER_NAME ]; then
-  tput setaf 1; echo 'ERROR: PUBLISHER_NAME not provided' ; tput sgr0
-  usage;
-fi
-
-if [ ! -z $4 ]; then PUBLISHER_EMAIL=$4; fi
+if [ ! -z $1 ]; then PUBLISHER_EMAIL=$1; fi
 if [ -z $PUBLISHER_EMAIL ]; then
   tput setaf 1; echo 'ERROR: PUBLISHER_EMAIL not provided' ; tput sgr0
   usage;
+fi
+
+if [ ! -z $2 ]; then RESOURCE_GROUP=$2; fi
+if [ -z $RESOURCE_GROUP ]; then
+  RESOURCE_GROUP="demo-apimanagement"
+fi
+
+if [ ! -z $3 ]; then PREFIX=$3; fi
+if [ -z $PREFIX ]; then
+  PREFIX="75098"
+fi
+
+if [ ! -z $4 ]; then PUBLISHER_NAME=$4; fi
+if [ -z $PUBLISHER_NAME ]; then
+  PUBLISHER_NAME="danielscholl"
 fi
 
 
@@ -74,13 +71,12 @@ CreateResourceGroup $RESOURCE_GROUP eastus2
 ## Deploy Template          ##
 ##############################
 BASE_DIR=$PWD
-Registry="danielscholl"
-Code="https://github.com/danielscholl/demo-apimanagement-funcapp.git"
+CODE="https://github.com/danielscholl/demo-apimanagement-funcapp.git"
 
 tput setaf 2; echo "Deploying Container Instance..." ; tput sgr0
-az container create --name "${Prefix}-api" \
+az container create --name "${PREFIX}-api" \
 --resource-group ${RESOURCE_GROUP} \
---image "${Registry}/demoapi" \
+--image "${PUBLISHER_NAME}/demoapi" \
 --dns-name-label "${PREFIX}-api" \
 --ports 80
 
@@ -91,10 +87,10 @@ az storage account create --name "${PREFIX}storage" \
     --location eastus2
 
 tput setaf 2; echo "Deploying Function App..." ; tput sgr0
-az functionapp create --name "${Prefix}-funcapp" \
+az functionapp create --name "${PREFIX}-funcapp" \
     --resource-group ${RESOURCE_GROUP} \
     --storage-account  "${PREFIX}storage" \
-    --deployment-source-url ${Code}  \
+    --deployment-source-url ${CODE}  \
     --consumption-plan-location eastus2
 
 az functionapp config appsettings set --name "${PREFIX}-funcapp" \
