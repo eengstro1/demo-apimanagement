@@ -49,7 +49,7 @@ ___Customer Story:___
 
 ___Deploy API Management:___
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/urihttps%3A%2F%2Fraw.githubusercontent.com%2Fdanielscholl%2Fdemo-apimanagement%2Fmaster%2Ftemplates%2Fapi-management-create%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/urihttps%3A%2F%2Fraw.githubusercontent.com%2Fdanielscholl%2Fdemo-apimanagement%2Fmaster%2Ftemplates%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
