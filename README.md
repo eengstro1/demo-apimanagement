@@ -62,8 +62,8 @@ __Deploy API Samples:__
 
 Resource_Group="demo"
 Prefix="75098"
-Registry="danielscholl"
-Code="https://github.com/danielscholl/demo-apimanagement-funcapp.git"
+Registry="eriksdemo"
+Code="https://github.com/eengstro1/demo-apimanagement-funcapp.git"
 
 
 # API in Container
